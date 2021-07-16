@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import re
 import ipdb
 from IPy import IPSet
 
@@ -32,8 +33,11 @@ def searchFromIPIP(data):
     for i in data:
         try:
             ip = i.split('/')[0]
-            iplist = ipdbsource.find(ip,"CN")
-            ipstr += f"{i} {iplist[0]} {iplist[1]} {iplist[2]} {iplist[3]} {iplist[4]} {iplist[-6]} {iplist[-2]} {iplist[-1]}".strip() + "\n"
+            if ip:
+                iplist = ipdbsource.find(ip,"CN")
+                ipinfo = f"{i} {iplist[0]} {iplist[1]} {iplist[2]} {iplist[3]} {iplist[4]} {iplist[-6]} {iplist[-2]} {iplist[-1]}".strip()
+                ipinfo = re.sub(r"\s+", " ", ipinfo)
+                ipstr += ipinfo + "\n"
         except:
             ipstr += "The current parameter is not supported \n"
     return ipstr

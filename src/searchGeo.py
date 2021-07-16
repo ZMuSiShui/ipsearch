@@ -1,4 +1,5 @@
 import geoip2.database
+import re
 
 def searchFromMaxmind(data):
     """
@@ -23,16 +24,17 @@ def searchFromMaxmind(data):
         for i in data:
             try:
                 ip = i.split('/')[0]
-                response = reader.city(ip)
-                country_name = response.country.names['zh-CN']
-                try:
-                    city_name = response.city.names['zh-CN']
-                except:
-                    city_name = response.city.name
-                latitude = response.location.latitude
-                longitude = response.location.longitude
-                timezone = response.location.time_zone
-                ipstr += f"{ip} {country_name} {city_name} {latitude} {longitude} {timezone}".strip() + "\n"
+                if ip:
+                    response = reader.city(ip)
+                    country_name = response.country.names['zh-CN']
+                    try:
+                        city_name = response.city.names['zh-CN']
+                    except:
+                        city_name = response.city.name
+                    timezone = response.location.time_zone
+                    ipinfo = f"{i} {country_name} {city_name} {timezone}".replace("None","").strip()
+                    ipinfo = re.sub(r"\s+", " ", ipinfo)
+                    ipstr += ipinfo + "\n"
             except:
                 ipstr += "The current parameter is not supported \n"
         return ipstr
