@@ -32,7 +32,7 @@ def searchFromIPIP(data):
     ipstr = ""
     for i in data:
         try:
-            ip = i.split('/')[0]
+            ip = i.split().split('/')[0]
             if ip:
                 iplist = ipdbsource.find(ip,"CN")
                 ipinfo = f"{i} {iplist[0]} {iplist[1]} {iplist[2]} {iplist[3]} {iplist[4]} {iplist[-6]} {iplist[-2]} {iplist[-1]}".strip()

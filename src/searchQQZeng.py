@@ -125,7 +125,7 @@ def searchFromQQZeng(data):
     ipstr = ""
     for i in data:
         try:
-            ip = i.split('/')[0]
+            ip = i.split().split('/')[0]
             if ip:
                 iplist = ipsearch.Find(ip).split("|")
                 ipinfo = f"{i} {iplist[1]} {iplist[2]} {iplist[3]} {iplist[4]} {iplist[5]} {iplist[8]}".strip()

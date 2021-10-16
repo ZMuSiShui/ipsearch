@@ -23,7 +23,7 @@ def searchFromMaxmind(data):
         ipstr = ""
         for i in data:
             try:
-                ip = i.split('/')[0]
+                ip = i.split().split('/')[0]
                 if ip:
                     response = reader.city(ip)
                     country_name = response.country.names['zh-CN']
