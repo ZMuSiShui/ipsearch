@@ -208,7 +208,8 @@ def searchFromCZ88(data):
     ipstr = ""
     for i in data:
         try:
-            ip = i.split().split('/')[0]
+            i = i.strip()
+            ip = i.split('/')[0]
             if ip:
                 iplist = cz.lookup(ip)
                 ipinfo = f"{i} {iplist[0]} {iplist[1]}".strip()
